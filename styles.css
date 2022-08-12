@@ -21,6 +21,6 @@ body {
     align-items: center;
 }
 
-a:hover {
-    color: grey;
+.square:hover {
+    background-color: rgb(209, 209, 209);
 }

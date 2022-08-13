@@ -7,15 +7,15 @@ function createGrid(numberOfSquares) {
         div.style.height = `${newHeight}px`;
         div.style.width = `${newHeight}px`;
         divContainer.appendChild(div);
+        div.addEventListener('mouseenter', changeRandomColor);
     }
 }
 
 
 function sketch() {
-    let numberOfSquares = 16;
+    let numberOfSquares = 32;
     createGrid(numberOfSquares);
-    let sizeButton = document.querySelector('.size-button');
-    sizeButton.addEventListener('click', resizeGrid);
+    addSizeButton();
 }
 
 function removeGrid() {
@@ -28,8 +28,42 @@ function removeGrid() {
 
 function resizeGrid() {
     numberOfSquares = prompt("Enter the number of squares: ", "");
+    if (numberOfSquares == undefined) return;
     removeGrid();
     createGrid(numberOfSquares);
 }
+
+function addSizeButton() {
+    let sizeButton = document.querySelector('.size-button');
+    sizeButton.addEventListener('click', resizeGrid);
+    addDrawingFeature();
+}
+
+function addDrawingFeature() {
+    let squares = document.querySelectorAll('.square');
+    squares.forEach((div) => {
+        div.addEventListener('click', () => {
+            div.style.backgroundColor = 'black';
+        });
+    });
+}
+
+function changeColor(e) {
+    e.target.style.backgroundColor = 'black';
+}
+
+function changeRandomColor(e) {
+    let redAmount = getRandomInt(0, 265);
+    let greenAmount = getRandomInt(0, 265);
+    let blueAmount = getRandomInt(0, 265);
+    e.target.style.backgroundColor = `rgb(${redAmount}, ${blueAmount}, ${greenAmount})`;
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}  
+
 
 sketch();
